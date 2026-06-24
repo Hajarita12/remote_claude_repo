@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import StatsCard from '@/components/StatsCard';
+import { getToken } from '@/lib/auth';
 import { fetchDashboardStats, type DashboardStats } from '@/lib/dashboard';
 
 type LoadingState = 'loading' | 'no-token' | 'ready' | 'error';
@@ -11,7 +12,7 @@ export default function DashboardPage() {
   const [status, setStatus] = useState<LoadingState>('loading');
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = getToken();
     if (!token) {
       setStatus('no-token');
       return;

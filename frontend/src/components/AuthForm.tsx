@@ -44,10 +44,11 @@ export default function AuthForm({ mode }: AuthFormProps) {
         return;
       }
 
-      const data = await res.json();
+      const json = await res.json();
+      const token = json?.data?.token ?? json?.token;
 
-      if (data.token) {
-        setToken(data.token);
+      if (token) {
+        setToken(token);
         router.push('/dashboard');
       } else {
         setError('No token received from server.');
