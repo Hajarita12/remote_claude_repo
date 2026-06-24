@@ -6,7 +6,7 @@ export interface DashboardStats {
 }
 
 const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000';
+  process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000/api';
 
 export async function fetchDashboardStats(
   token: string,
@@ -24,8 +24,8 @@ export async function fetchDashboardStats(
       return null;
     }
 
-    const data: DashboardStats = await response.json() as DashboardStats;
-    return data;
+    const json = await response.json();
+    return (json?.data ?? json) as DashboardStats;
   } catch {
     return null;
   }
